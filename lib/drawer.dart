@@ -7,8 +7,8 @@ import 'package:profile_remote_control/remoteCtrl.dart';
 import 'package:profile_remote_control/table.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 
-class MyDrawer extends StatelessWidget {
-  const MyDrawer({super.key});
+class MyProfile extends StatelessWidget {
+  const MyProfile({super.key});
 
   static const appTitle = 'Drawer Demo';
 
@@ -31,12 +31,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _selectedIndex = 0;
   // var cleaningHrs = 18;
   bool water = true;
   bool brush = false;
   bool buttonColor = true;
   bool buttonRemote = true;
+  int _selectedIndex = 0;
 
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);

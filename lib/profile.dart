@@ -52,7 +52,7 @@ class _ProfileLayoutState extends State<ProfileLayout> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const MyDrawer(),
+                              builder: (context) => const MyProfile(),
                             ),
                           );
                         },
