@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:profile_remote_control/profile.dart';
+import 'package:profile_remote_control/drawer.dart';
+// import 'package:profile_remote_control/profile.dart';
 
 void main() {
   runApp(const MyApp());
@@ -184,7 +185,7 @@ class _InputFormState extends State<InputForm> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        const ProfileLayout()),
+                                        const MyDrawer()),
                               );
                             }
                           },

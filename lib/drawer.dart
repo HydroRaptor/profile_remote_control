@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter/widgets.dart';
 import 'package:profile_remote_control/Grid.dart';
+import 'package:profile_remote_control/main.dart';
 // import 'package:flutter/widgets.dart';
 import 'package:profile_remote_control/remoteCtrl.dart';
 import 'package:profile_remote_control/table.dart';
@@ -125,10 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
               fit: BoxFit.contain,
             ),
             SafeArea(
-              child:
-               _widgetOptions[_selectedIndex],
-
-               
+              child: _widgetOptions[_selectedIndex],
             ),
           ],
         ),
@@ -164,6 +162,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               ListTile(
+                leading: const Icon(Icons.home),
                 title: const Text('Home'),
                 selected: _selectedIndex == 0,
                 onTap: () {
@@ -174,6 +173,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
               ),
               ListTile(
+                leading: const Icon(Icons.table_chart),
                 title: const Text('Table'),
                 selected: _selectedIndex == 1,
                 onTap: () {
@@ -189,6 +189,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
               ),
               ListTile(
+                leading: const Icon(Icons.grid_view),
                 title: const Text('Grid'),
                 selected: _selectedIndex == 2,
                 onTap: () {
@@ -196,6 +197,24 @@ class _MyHomePageState extends State<MyHomePage> {
                   _onItemTapped(2);
                   // Then close the drawer
                   Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.logout),
+                title: const Text('Log out'),
+                // selected: _selectedIndex == 3,
+                onTap: () {
+                  // Update the state of the app
+                  // _onItemTapped(3);
+                  // Then close the drawer
+                  // Navigator.pop(context);
+                  // Navigator.of(context).popUntil((route) => route.isFirst);
+                   Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const MyApp()),
+                              );
                 },
               ),
             ],
@@ -210,58 +229,56 @@ class ProfileContent extends StatelessWidget {
   const ProfileContent({
     super.key,
   });
-  
+
   @override
   Widget build(BuildContext context) {
-      var cleaningHrs = 18;
+    var cleaningHrs = 18;
 
     return Column(
-     children: [
-       Padding(
-         padding: const EdgeInsets.only(top: 40),
-         child: Container(
-           padding: const EdgeInsets.all(10),
-           decoration: const BoxDecoration(
-               color: Colors.white, shape: BoxShape.circle),
-           child: const CircleAvatar(
-             backgroundImage:
-                 AssetImage('images/man-profile-account.jpg'),
-             // backgroundColor: Colors.brown.shade800,
-             // child: const Text('AH'),
-             radius: 75,
-           ),
-         ),
-       ),
-       GradientText(
-         'Lebron James',
-         style: const TextStyle(
-           fontSize: 40.0,
-         ),
-         colors: const [
-           Colors.blue,
-           Color.fromARGB(255, 255, 94, 185),
-           Color.fromARGB(255, 255, 200, 141),
-         ],
-       ),
-       Text(
-         'Cleaning Hours: $cleaningHrs',
-         style: const TextStyle(
-             fontSize: 16, fontWeight: FontWeight.bold),
-       ),
-    
-       const SizedBox(
-         height: 30,
-       ),
-       // the tab bar with two items
-       // extendBodyBehindAppBar: true,
-       const MyAppBar(),
-    
-       // create widgets for each tab bar here
-       const Mytab(),
-    
-       ///////////////////////////////////////////////
-     ],
-                  );
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(top: 40),
+          child: Container(
+            padding: const EdgeInsets.all(10),
+            decoration: const BoxDecoration(
+                color: Colors.white, shape: BoxShape.circle),
+            child: const CircleAvatar(
+              backgroundImage: AssetImage('images/man-profile-account.jpg'),
+              // backgroundColor: Colors.brown.shade800,
+              // child: const Text('AH'),
+              radius: 75,
+            ),
+          ),
+        ),
+        GradientText(
+          'Lebron James',
+          style: const TextStyle(
+            fontSize: 40.0,
+          ),
+          colors: const [
+            Colors.blue,
+            Color.fromARGB(255, 255, 94, 185),
+            Color.fromARGB(255, 255, 200, 141),
+          ],
+        ),
+        Text(
+          'Cleaning Hours: $cleaningHrs',
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+
+        const SizedBox(
+          height: 30,
+        ),
+        // the tab bar with two items
+        // extendBodyBehindAppBar: true,
+        const MyAppBar(),
+
+        // create widgets for each tab bar here
+        const Mytab(),
+
+        ///////////////////////////////////////////////
+      ],
+    );
   }
 }
 

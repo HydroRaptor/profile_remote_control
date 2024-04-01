@@ -64,8 +64,8 @@ class CustomGridDelegate extends SliverGridDelegate {
   SliverGridLayout getLayout(SliverConstraints constraints) {
     // Determine how many squares we can fit per row.
     int count = constraints.crossAxisExtent ~/ dimension;
-    if (count < 1) {
-      count = 1; // Always fit at least one regardless.
+    if (count < 2) {
+      count = 2; // Always fit at least one regardless.
     }
     final double squareDimension = constraints.crossAxisExtent / count;
     return CustomGridLayout(
