@@ -213,7 +213,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        const MyApp()),
+                                        const LogIn()),
                               );
                 },
               ),

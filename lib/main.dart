@@ -3,11 +3,11 @@ import 'package:profile_remote_control/drawer.dart';
 // import 'package:profile_remote_control/profile.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const LogIn());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class LogIn extends StatelessWidget {
+  const LogIn({super.key});
 
   // This widget is the root of your application.
   @override
