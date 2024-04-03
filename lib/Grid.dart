@@ -17,7 +17,7 @@ class GridViewExampleApp extends StatelessWidget {
             padding: const EdgeInsets.all(12.0),
             gridDelegate: CustomGridDelegate(dimension: 240.0),
             // Try uncommenting some of these properties to see the effect on the grid:
-            // itemCount: 20, // The default is that the number of grid tiles is infinite.
+            itemCount: 30, // The default is that the number of grid tiles is infinite.
             // scrollDirection: Axis.horizontal, // The default is vertical.
             // reverse: true, // The default is false, going down (or left to right).
             itemBuilder: (BuildContext context, int index) {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:profile_remote_control/drawer.dart';
+import 'package:profile_remote_control/myprofilewdrawer.dart';
 // import 'package:profile_remote_control/profile.dart';
 
 void main() {
@@ -33,35 +33,7 @@ class InputForm extends StatefulWidget {
 class _InputFormState extends State<InputForm> {
   final _formKey = GlobalKey<FormState>();
   bool _passwordVisible = false;
-  // int _selectedIndex = 0;
 
-  // static const TextStyle optionStyle =
-  //     TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  // static const List<Widget> _widgetOptions = <Widget>[
-  //   // Text(
-  //   //   'Index 0: Home',
-  //   //   style: optionStyle,
-  //   // ),
-  //   // ProfileContent(),
-  //   // Text(
-  //   //   'Index 1: Business',
-  //   //   style: optionStyle,
-  //   // ),
-  //   // TableExample(),
-  //   // Text(
-  //   //   'Index 2: School',
-  //   //   style: optionStyle,
-  //   // ),
-  //   // GridViewExampleApp(),
-  //   Register(),
-  // ];
-
-  // void _onItemTapped(int index) {
-  //   setState(() {
-  //     _selectedIndex = index;
-  //   });
-  // }
-  
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +54,7 @@ class _InputFormState extends State<InputForm> {
           //
           child: Image(
             image: AssetImage('images/Grad_bg.png'),
-            fit: BoxFit.fitHeight,
+            fit: BoxFit.cover,
           ),
         ),
         Center(
@@ -234,7 +206,7 @@ class _InputFormState extends State<InputForm> {
                               ),
                             );
                           },
-                          child: const Text('Didn`t have an account? Sign up Here'),
+                          child: const Text('Didn\'t have an account? Sign up Here'),
                         ),
                       ),
                     ],
@@ -248,17 +220,3 @@ class _InputFormState extends State<InputForm> {
     );
   }
 }
-
-// class Register extends StatefulWidget {
-//   const Register({super.key});
-
-//   @override
-//   State<Register> createState() => _RegisterState();
-// }
-
-// class _RegisterState extends State<Register> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return const Placeholder();
-//   }
-// }

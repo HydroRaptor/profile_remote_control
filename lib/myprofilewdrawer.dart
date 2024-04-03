@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter/widgets.dart';
-import 'package:profile_remote_control/Grid.dart';
+import 'package:profile_remote_control/grid.dart';
+import 'package:profile_remote_control/json.dart';
 import 'package:profile_remote_control/main.dart';
-// import 'package:flutter/widgets.dart';
 import 'package:profile_remote_control/remoteCtrl.dart';
 import 'package:profile_remote_control/table.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
@@ -10,13 +10,36 @@ import 'package:simple_gradient_text/simple_gradient_text.dart';
 class MyProfile extends StatelessWidget {
   const MyProfile({super.key});
 
-  static const appTitle = 'Drawer Demo';
+  static const appTitle = 'Profile w/ Drawer';
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return  const MaterialApp(
       title: appTitle,
-      home: MyHomePage(title: appTitle),
+      home: 
+      MyHomePage(title: appTitle),
+        //        PopScope(
+
+        // canPop: () async {
+        // final difference = DateTime.now().difference(timeBackPressed);
+        // final isExitWarning = difference >= Duration(seconds: 2);
+
+        // timeBackPressed = DateTime.now();
+
+        // if (isExitWarning) {
+        // final message = 'Press back again to exit';
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //                         const SnackBar(content: Text('Processing Data')),);
+
+        // return false;
+
+        // } else {
+        // Fluttertoast.concel();
+        // return true;
+        // }
+        // },
+    // child:
+    // ),
     );
   }
 }
@@ -31,36 +54,36 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  // var cleaningHrs = 18;
-  bool water = true;
-  bool brush = false;
+
   bool buttonColor = true;
   bool buttonRemote = true;
-  int _selectedIndex = 0;
+  int selectedIndex = 0;
+  bool imgContain = false;
 
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  // static const TextStyle optionStyle =
+  //     TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
-    // Text(
-    //   'Index 0: Home',
-    //   style: optionStyle,
-    // ),
+    
     ProfileContent(),
-    // Text(
-    //   'Index 1: Business',
-    //   style: optionStyle,
-    // ),
+
     TableExample(),
-    // Text(
-    //   'Index 2: School',
-    //   style: optionStyle,
-    // ),
+    
     GridViewExampleApp(),
+
+    MyJSONPage(),
+    
   ];
 
   void _onItemTapped(int index) {
+    selectedIndex = index;
+      if(selectedIndex > 1) {
+        imgContain = false;
+        
+      } else if(selectedIndex < 2) {
+        imgContain = true;
+      }
     setState(() {
-      _selectedIndex = index;
+      
     });
   }
 
@@ -104,29 +127,17 @@ class _MyHomePageState extends State<MyHomePage> {
                 style: TextStyle(color: Colors.white),
               ),
             )
-            // IconButton(
-            //   icon: const Icon(
-            //     Icons.arrow_right,
-            //     color: Colors.white,
-            //   ),
-            //   tooltip: 'Real Remote Control',
-            //   onPressed: () {
-            //     Navigator.push(
-            //         context,
-            //         MaterialPageRoute(
-            //             builder: (context) => const RemoteCtrlApp()));
-            //   },
-            // ),
           ],
         ),
         body: Stack(
           children: [
-            const Image(
-              image: AssetImage('images/Grad_bg.png'),
-              fit: BoxFit.contain,
+             Image(
+              image: const AssetImage('images/Grad_bg.png'),
+              fit: imgContain ? BoxFit.contain : BoxFit.cover,
+              
             ),
             SafeArea(
-              child: _widgetOptions[_selectedIndex],
+              child: _widgetOptions[selectedIndex],
             ),
           ],
         ),
@@ -144,7 +155,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     begin: Alignment.topLeft,
                     end: Alignment(0.8, 1),
                     colors: <Color>[
-                      Color(0xff1f005c),
+                      // Color(0xff1f005c),
                       Color(0xff5b0060),
                       // Color(0xff870160),
                       Color(0xffac255e),
@@ -162,9 +173,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               ListTile(
-                leading: const Icon(Icons.home),
-                title: const Text('Home'),
-                selected: _selectedIndex == 0,
+                leading: const Icon(Icons.person_sharp),
+                title: const Text('Profile'),
+                selected: selectedIndex == 0,
                 onTap: () {
                   // Update the state of the app
                   _onItemTapped(0);
@@ -175,7 +186,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ListTile(
                 leading: const Icon(Icons.table_chart),
                 title: const Text('Table'),
-                selected: _selectedIndex == 1,
+                selected: selectedIndex == 1,
                 onTap: () {
                   // Update the state of the app
                   _onItemTapped(1);
@@ -191,7 +202,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ListTile(
                 leading: const Icon(Icons.grid_view),
                 title: const Text('Grid'),
-                selected: _selectedIndex == 2,
+                selected: selectedIndex == 2,
                 onTap: () {
                   // Update the state of the app
                   _onItemTapped(2);
@@ -200,9 +211,20 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
               ),
               ListTile(
+                leading: const Icon(Icons.data_object),
+                title: const Text('JSON'),
+                selected: selectedIndex == 3,
+                onTap: () {
+                  // Update the state of the app
+                  _onItemTapped(3);
+                  // Then close the drawer
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
                 leading: const Icon(Icons.logout),
                 title: const Text('Log out'),
-                // selected: _selectedIndex == 3,
+                // selected: selectedIndex == 3,
                 onTap: () {
                   // Update the state of the app
                   // _onItemTapped(3);
@@ -301,10 +323,7 @@ class MyAppBar extends StatelessWidget {
             child: TabBar(
               unselectedLabelColor: Colors.grey,
               labelColor: Colors.lightBlue,
-              // unselectedLabelStyle: butt,///////////////////////////////
-
               indicatorSize: TabBarIndicatorSize.tab,
-              // automaticIndicatorColorAdjustment: true,
               indicator: BoxDecoration(
                 borderRadius: BorderRadius.circular(20), // Creates border
                 color: Colors.white,
