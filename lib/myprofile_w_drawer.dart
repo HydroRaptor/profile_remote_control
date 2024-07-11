@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:profile_remote_control/DB_gridview.dart';
+// import 'package:profile_remote_control/dog_db.dart';
 // import 'package:flutter/widgets.dart';
 import 'package:profile_remote_control/grid.dart';
 import 'package:profile_remote_control/json.dart';
+import 'package:profile_remote_control/json_with_db.dart';
 import 'package:profile_remote_control/main.dart';
-import 'package:profile_remote_control/remoteCtrl.dart';
+import 'package:profile_remote_control/r_w_to_storage.dart';
+import 'package:profile_remote_control/remote_ctrl.dart';
 import 'package:profile_remote_control/table.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
+
+import 'user_list_demo.dart';
 
 class MyProfile extends StatelessWidget {
   const MyProfile({super.key});
@@ -14,32 +20,9 @@ class MyProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  const MaterialApp(
+    return const MaterialApp(
       title: appTitle,
-      home: 
-      MyHomePage(title: appTitle),
-        //        PopScope(
-
-        // canPop: () async {
-        // final difference = DateTime.now().difference(timeBackPressed);
-        // final isExitWarning = difference >= Duration(seconds: 2);
-
-        // timeBackPressed = DateTime.now();
-
-        // if (isExitWarning) {
-        // final message = 'Press back again to exit';
-        // ScaffoldMessenger.of(context).showSnackBar(
-        //                         const SnackBar(content: Text('Processing Data')),);
-
-        // return false;
-
-        // } else {
-        // Fluttertoast.concel();
-        // return true;
-        // }
-        // },
-    // child:
-    // ),
+      home: MyHomePage(title: appTitle),
     );
   }
 }
@@ -54,7 +37,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   bool buttonColor = true;
   bool buttonRemote = true;
   int selectedIndex = 0;
@@ -62,29 +44,26 @@ class _MyHomePageState extends State<MyHomePage> {
 
   // static const TextStyle optionStyle =
   //     TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    
-    ProfileContent(),
-
-    TableExample(),
-    
-    GridViewExampleApp(),
-
-    MyJSONPage(),
-    
+  static final List<Widget> _widgetOptions = <Widget>[
+    const ProfileContent(), // 0
+    const TableExample(), // 1
+    const GridViewExampleApp(), // 2
+    const MyJSONPage(), // 3
+    const MyJSONwithDB(), // 4
+    FlutterDemo(storage: CounterStorage()), // 5
+    const UserListDemo(), // 6
+    const GridViewDemo(),// 7
   ];
 
   void _onItemTapped(int index) {
     selectedIndex = index;
-      if(selectedIndex > 1) {
-        imgContain = false;
-        
-      } else if(selectedIndex < 2) {
-        imgContain = true;
-      }
-    setState(() {
-      
-    });
+    // if(selectedIndex > 1) {
+    //   imgContain = false;
+
+    // } else if(selectedIndex < 2) {
+    //   imgContain = true;
+    // }
+    setState(() {});
   }
 
   @override
@@ -131,11 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         body: Stack(
           children: [
-             Image(
-              image: const AssetImage('images/Grad_bg.png'),
-              fit: imgContain ? BoxFit.contain : BoxFit.cover,
-              
-            ),
+            const ImageBackground(),
             SafeArea(
               child: _widgetOptions[selectedIndex],
             ),
@@ -222,6 +197,54 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
               ),
               ListTile(
+                leading: const Icon(Icons.storage),
+                title: const Text('JSON w/ DB'),
+                selected: selectedIndex == 4,
+                onTap: () {
+                  // Update the state of the app
+                  _onItemTapped(4);
+                  // Then close the drawer
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.save),
+                title: const Text('RWtoStorage'),
+                selected: selectedIndex == 5,
+                onTap: () {
+                  // Update the state of the app
+                  _onItemTapped(5);
+                  // Then close the drawer
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.data_array),
+                title: const Text('JSON'),
+                selected: selectedIndex == 6,
+                onTap: () {
+                  // Update the state of the app
+                  _onItemTapped(6);
+                  // Then close the drawer
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.data_thresholding_outlined),
+                title: const Text('DB Grid JSON'),
+                selected: selectedIndex == 7,
+                onTap: () {
+                  // Update the state of the app
+                  // _onItemTapped(7);
+                  // // Then close the drawer
+                  // Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const GridViewDemo()),
+                  );
+                },
+              ),
+              ListTile(
                 leading: const Icon(Icons.logout),
                 title: const Text('Log out'),
                 // selected: selectedIndex == 3,
@@ -231,18 +254,30 @@ class _MyHomePageState extends State<MyHomePage> {
                   // Then close the drawer
                   // Navigator.pop(context);
                   // Navigator.of(context).popUntil((route) => route.isFirst);
-                   Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const LogIn()),
-                              );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const LogIn()),
+                  );
                 },
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class ImageBackground extends StatelessWidget {
+  const ImageBackground({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return const Image(
+      image: AssetImage('images/Grad_bg.png'),
+      fit: BoxFit.cover,
     );
   }
 }

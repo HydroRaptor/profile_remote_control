@@ -1,8 +1,8 @@
 // import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:profile_remote_control/myprofilewdrawer.dart';
+import 'package:profile_remote_control/myprofile_w_drawer.dart';
 // import 'package:profile_remote_control/RealRemoteCtrl.dart';
-import 'package:profile_remote_control/remoteCtrl.dart';
+import 'package:profile_remote_control/remote_ctrl.dart';
 // import 'package:profile_remote_control/remoteCtrl.dart';
 // import 'package:flutter/widgets.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';

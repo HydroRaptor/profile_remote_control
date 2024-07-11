@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:profile_remote_control/user.dart';
 import 'package:http/http.dart' as http;
 
-
 class MyJSONPage extends StatefulWidget {
   const MyJSONPage({super.key});
 
@@ -14,9 +13,7 @@ class MyJSONPage extends StatefulWidget {
 }
 
 class _MyJSONPageState extends State<MyJSONPage> {
-  bool userTappedme = true;
-  List<bool>strikeList = List.generate(100, (index) => false);
-
+  List<bool> strikeList = List.generate(100, (index) => false);
 
   Future<List<User>> usersFuture = getUsers();
   static Future<List<User>> getUsers() async {
@@ -28,23 +25,52 @@ class _MyJSONPageState extends State<MyJSONPage> {
 
   @override
   Widget build(BuildContext context) {
-    
-    return Center(
-      child: FutureBuilder<List<User>>(
-        future: usersFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const CircularProgressIndicator();
-          } else if (snapshot.hasError) {
-            return Text('😞 ${snapshot.error}');
-          } else if (snapshot.hasData) {
-            final users = snapshot.data!;
-            return buildUser(users, strikeList);
-          } else {
-            return const Text('No user data.');
-          }
-        },
-      ),
+    return Stack(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: FutureBuilder<List<User>>(
+            future: usersFuture,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const CircularProgressIndicator();
+              } else if (snapshot.hasError) {
+                return Text('😞 ${snapshot.error}');
+              } else if (snapshot.hasData) {
+                final users = snapshot.data!;
+                return buildUser(users, strikeList);
+              } else {
+                return const Text('No user data.');
+              }
+            },
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only( left: 200, bottom: 50, ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              TextButton(
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.lightBlue,
+                ),
+                child: const Text('➕ Add Data To LocalStorage'),
+                onPressed: () {},
+              ),
+              TextButton(
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.lightBlue,
+                ),
+                child: const Text('💾 Read Data from LocalStorage'),
+                onPressed: () {},
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 
@@ -53,20 +79,14 @@ class _MyJSONPageState extends State<MyJSONPage> {
         itemBuilder: (context, index) {
           var user = users[index];
 
-          return Card(
-            child: ListTile(
-              
-              leading: Text(user.id.toString()),
-              title: Text( strikeList[index] ? user.ubody : user.utitle),
-              onTap: () {
-                strikeList[index] = !strikeList[index];
-                setState(() {
-
-                });
-                
-              },
-              
-            ),
+          return ListTile(
+            
+            leading: Text(user.id.toString()),
+            title: Text(strikeList[index] ? user.ubody : user.utitle),
+            onTap: () {
+              strikeList[index] = !strikeList[index];
+              setState(() {});
+            },
           );
         },
       );
