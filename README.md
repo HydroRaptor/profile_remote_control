@@ -1,6 +1,7 @@
 # profile_remote_control
 
-A new Flutter project.
+A new Flutter project. A Practice Flutter app for learning and getting use to.
+Has Buttons, Drawer, Tabs, etc basic UI widgets. It has also a remote control ui, but doesnt do anything right now except moving a red circle to test if it works. I use joystick plugin for that.
 
 ## Getting Started
 
